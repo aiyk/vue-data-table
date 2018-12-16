@@ -12,11 +12,25 @@
       </div>
     </div>
 
+    <div class="tbl-controls">
+      <div class="search-wrap">
+        <input type="search" placeholder="search...">
+      </div>
+      <div class="tbl-pagination">
+        <span>1 - 10 of 100</span>
+        <img src="./assets/icon-set/angle-left.svg">
+        <img src="./assets/icon-set/angle-right.svg">
+      </div>
+    </div>
+
     <div class="tbl">
       <div v-for="(payment, index) in dataTable.paymentData" v-bind:key="index">
-        <div v-if="index===0" class="tr">
+        <div v-if="index===0" class="tr thead">
           <div v-if="dataTable.metaData.trCheckbox" class="td-actions"></div>
-          <div v-for="(val, key) in payment" v-bind:key="key" class="th">{{key}}</div>
+          <div v-for="(val, key) in payment" v-bind:key="key" class="th">
+            <span>{{key}}</span>
+            <img src="./assets/icon-set/filter.svg">
+          </div>
           <div v-if="dataTable.metaData.trActions" class="td-actions"></div>
         </div>
         <div class="tr tbody">
@@ -47,74 +61,45 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="dataTable.metaData.tblSummary"
-      class="table-subtitle"
-    >{{dataTable.metaData.tblSummary}}</div>
+
+    <div class="tbl-controls">
+      <div class="tbl-pagination">
+        <span>1 - 10 of 100</span>
+        <img src="./assets/icon-set/angle-left.svg">
+        <img src="./assets/icon-set/angle-right.svg">
+      </div>
+      <div
+        v-if="dataTable.metaData.tblSummary"
+        class="table-subtitle"
+      >{{dataTable.metaData.tblSummary}}</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["dataTable"],
   data() {
     return {
-      dataTable: {
-        ddmenu_tblmenu: false,
-        ddmenu_tblitem: false,
-        clickItemIndex: null,
-
-        metaData: {
-          tblTitle: "BriteCore Payment Data",
-          tblSubtitle:
-            "Customer settement sheet for the month of October, 2018.",
-          trActions: true,
-          trCheckbox: true,
-          tblSummary:
-            "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
-        },
-        paymentData: [
-          {
-            id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
-            date: "11th October, 2018",
-            amount: 345.54
-          },
-          {
-            id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
-            date: "11th October, 2018",
-            amount: 345.54
-          },
-          {
-            id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
-            date: "11th October, 2018",
-            amount: 345.54
-          }
-        ]
-      }
+      ddmenu_tblmenu: false,
+      ddmenu_tblitem: false,
+      clickItemIndex: null
     };
   },
   methods: {
     item_to_show: function(i) {
-      return this.dataTable.clickItemIndex === i;
+      return this.clickItemIndex === i;
     },
     tblmenu_onclick: function() {
-      this.dataTable.ddmenu_tblmenu = !this.dataTable.ddmenu_tblmenu;
+      this.ddmenu_tblmenu = !this.ddmenu_tblmenu;
     },
     tblmenuitem_onclick: function(itemIndex) {
-      if (this.dataTable.clickItemIndex == itemIndex) {
-        this.dataTable.clickItemIndex = null;
+      if (this.clickItemIndex == itemIndex) {
+        this.clickItemIndex = null;
       } else {
-        this.dataTable.clickItemIndex = itemIndex;
+        this.clickItemIndex = itemIndex;
       }
-      this.dataTable.ddmenu_tblitem = !this.dataTable.ddmenu_tblitem;
+      this.ddmenu_tblitem = !this.ddmenu_tblitem;
     }
   }
 };
@@ -141,9 +126,6 @@ export default {
       display: flex;
     }
   }
-  .tbl {
-    margin: 30px 0;
-  }
   .tr {
     display: grid;
     margin-bottom: 1rem;
@@ -160,12 +142,22 @@ export default {
     border: 1px solid var(--color-blue-lite);
   }
   .th {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: transparent;
     font-weight: normal;
-    padding: 2px 15px;
+    padding: 10px 15px;
     box-sizing: border-box;
     color: var(--text-secondary);
     grid-column: span 10;
+    border-radius: 7px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--bg-grey-lighter);
+      border-bottom: 2px solid var(--color-blue-lite);
+    }
   }
 
   .td {
@@ -194,5 +186,51 @@ export default {
   font-size: 1.4rem;
   color: var(--disabled);
   font-style: italic;
+}
+.tbl-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 5px 0;
+  .tbl-pagination {
+    display: flex;
+    color: var(--disabled);
+    span {
+      padding-left: 20px;
+    }
+    img {
+      cursor: pointer;
+      margin-left: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .table-wrap {
+    .pre-table {
+      flex-flow: column;
+      align-items: center;
+      .table-ctas {
+        margin: 20px 0;
+      }
+    }
+  }
+  .tbl-controls {
+    flex-flow: column;
+    align-items: center;
+    .tbl-pagination {
+      margin: 20px 0;
+    }
+  }
+  .thead {
+    display: none !important;
+  }
+  .table-wrap .tr {
+    display: block;
+    -webkit-box-shadow: 0 4px 8px var(--shadow-color);
+    -moz-box-shadow: 0 4px 8px var(--shadow-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+  }
 }
 </style>

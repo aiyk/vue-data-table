@@ -1,14 +1,51 @@
 <template>
   <div id="app">
-    <data-table></data-table>
+    <data-table v-bind:dataTable="dataTable"></data-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: "app",
   data() {
-    return {};
+    return {
+      dataTable: {
+        metaData: {
+          tblTitle: "BriteCore Payment Data",
+          tblSubtitle:
+            "Customer settement sheet for the month of October, 2018.",
+          trActions: true,
+          trCheckbox: false,
+          tblSummary:
+            "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
+        },
+        paymentData: [
+          {
+            id: "1",
+            name: "Joana Linkin",
+            description:
+              "payment made for the purchase of an electrical wrapping sheet",
+            date: "11th October, 2018",
+            amount: 345.54
+          },
+          {
+            id: "1",
+            name: "Joana Linkin",
+            description:
+              "payment made for the purchase of an electrical wrapping sheet",
+            date: "11th October, 2018",
+            amount: 345.54
+          },
+          {
+            id: "1",
+            name: "Joana Linkin",
+            description:
+              "payment made for the purchase of an electrical wrapping sheet",
+            date: "11th October, 2018",
+            amount: 345.54
+          }
+        ]
+      }
+    };
   }
 };
 </script>
@@ -26,6 +63,7 @@ export default {
   --text-primary: #040e28;
   --text-secondary: #646d82;
   --disabled: #a6b1c2;
+  --shadow-color: rgba(148, 148, 148, 0.25);
   /*Background Greys*/
   --bg-grey-dark: #dce1ea;
   --bg-grey-medium: #e6eaf0;
@@ -178,5 +216,25 @@ li {
 
 .clickable {
   cursor: pointer;
+}
+.search-wrap {
+  border-radius: 2px;
+  border: 1px solid var(--bg-grey-dark);
+  padding-left: 0.7rem;
+  background-color: var(--bg-grey-lighter);
+  width: 300px;
+}
+.search-wrap input {
+  border: 0px;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  background-image: url("assets/icon-set/search.svg");
+  padding: 1rem 1rem 1rem 2rem;
+  margin: 0 !important;
+  width: 100%;
+  outline: 0;
+  background-color: var(--bg-grey-lighter);
+  font-size: 1.4rem;
+  color: var(--text-secondary);
 }
 </style>
