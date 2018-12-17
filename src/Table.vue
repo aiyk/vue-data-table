@@ -2,8 +2,8 @@
   <div id="data-table" class="table-wrap">
     <div class="pre-table">
       <div class="table-titles">
-        <div class="table-title">{{dataTable.metaData.tblTitle}}</div>
-        <div class="table-subtitle">{{dataTable.metaData.tblSubtitle}}</div>
+        <div class="table-title">{{datasource.metaData.tblTitle}}</div>
+        <div class="table-subtitle">{{datasource.metaData.tblSubtitle}}</div>
       </div>
       <div class="table-ctas">
         <button class="btn btn-blue">
@@ -26,19 +26,19 @@
     <div class="tbl">
       <div v-for="(item, index) in filteredTableData" v-bind:key="index">
         <div v-if="index===0" class="tr thead">
-          <div v-if="dataTable.metaData.trCheckbox" class="td-actions"></div>
+          <div v-if="datasource.metaData.trCheckbox" class="td-actions"></div>
           <div v-for="(val, key) in item" v-bind:key="key" class="th">
             <span>{{key}}</span>
             <img src="./assets/icon-set/filter.svg">
           </div>
-          <div v-if="dataTable.metaData.trActions" class="td-actions"></div>
+          <div v-if="datasource.metaData.trActions" class="td-actions"></div>
         </div>
         <div class="tr tbody">
-          <div v-if="dataTable.metaData.trCheckbox" class="td-actions">
+          <div v-if="datasource.metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
           </div>
           <div v-for="(val, key) in item" v-bind:key="key" class="td">{{val}}</div>
-          <div v-if="dataTable.metaData.trActions" class="td-actions dropdown-wrap">
+          <div v-if="datasource.metaData.trActions" class="td-actions dropdown-wrap">
             <button
               v-on:click="tblmenuitem_onclick(index)"
               class="btn-hollow btn-elipsis-v-center btn-x0"
@@ -69,16 +69,16 @@
         <img src="./assets/icon-set/angle-right.svg">
       </div>
       <div
-        v-if="dataTable.metaData.tblSummary"
+        v-if="datasource.metaData.tblSummary"
         class="table-subtitle"
-      >{{dataTable.metaData.tblSummary}}</div>
+      >{{datasource.metaData.tblSummary}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["dataTable"],
+  props: ["datasource"],
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -105,9 +105,9 @@ export default {
   },
   computed: {
     filteredTableData: function() {
-      return this.dataTable.tblData.filter(item => {
+      return this.datasource.tblData.filter(item => {
         console.log(item);
-        return item.name.includes(this.search);
+        return item.Name.includes(this.search);
       });
     }
   }

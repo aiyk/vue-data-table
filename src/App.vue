@@ -1,50 +1,17 @@
 <template>
   <div id="app">
-    <data-table v-bind:dataTable="dataTable"></data-table>
+    <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
+    <data-table v-bind:datasource="datasource"></data-table>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  data() {
-    return {
-      dataTable: {
-        metaData: {
-          tblTitle: "BriteCore Payment Data",
-          tblSubtitle:
-            "Customer settement sheet for the month of October, 2018.",
-          trActions: true,
-          trCheckbox: false,
-          tblSummary:
-            "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
-        },
-        tblData: [
-          {
-            id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
-            date: "11th October, 2018",
-            amount: 345.54
-          },
-          {
-            id: "1",
-            name: "Sammyl Jonas",
-            description: "payment of premium for car insurance",
-            date: "11th October, 2018",
-            amount: 2345.54
-          },
-          {
-            id: "1",
-            name: "Steven Seagal",
-            description: "payment made for life assurance",
-            date: "11th October, 2018",
-            amount: 22345.54
-          }
-        ]
-      }
-    };
-  }
+  computed: mapState({
+    datasource: "datasource"
+  })
 };
 </script>
 
