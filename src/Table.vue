@@ -14,7 +14,7 @@
 
     <div class="tbl-controls">
       <div class="search-wrap">
-        <input type="search" placeholder="search...">
+        <input v-model="search" type="search" placeholder="search...">
       </div>
       <div class="tbl-pagination">
         <span>1 - 10 of 100</span>
@@ -24,10 +24,10 @@
     </div>
 
     <div class="tbl">
-      <div v-for="(payment, index) in dataTable.paymentData" v-bind:key="index">
+      <div v-for="(item, index) in filteredTableData" v-bind:key="index">
         <div v-if="index===0" class="tr thead">
           <div v-if="dataTable.metaData.trCheckbox" class="td-actions"></div>
-          <div v-for="(val, key) in payment" v-bind:key="key" class="th">
+          <div v-for="(val, key) in item" v-bind:key="key" class="th">
             <span>{{key}}</span>
             <img src="./assets/icon-set/filter.svg">
           </div>
@@ -37,7 +37,7 @@
           <div v-if="dataTable.metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
           </div>
-          <div v-for="(val, key) in payment" v-bind:key="key" class="td">{{val}}</div>
+          <div v-for="(val, key) in item" v-bind:key="key" class="td">{{val}}</div>
           <div v-if="dataTable.metaData.trActions" class="td-actions dropdown-wrap">
             <button
               v-on:click="tblmenuitem_onclick(index)"
@@ -83,7 +83,8 @@ export default {
     return {
       ddmenu_tblmenu: false,
       ddmenu_tblitem: false,
-      clickItemIndex: null
+      clickItemIndex: null,
+      search: ""
     };
   },
   methods: {
@@ -100,6 +101,14 @@ export default {
         this.clickItemIndex = itemIndex;
       }
       this.ddmenu_tblitem = !this.ddmenu_tblitem;
+    }
+  },
+  computed: {
+    filteredTableData: function() {
+      return this.dataTable.tblData.filter(item => {
+        console.log(item);
+        return item.name.includes(this.search);
+      });
     }
   }
 };
@@ -231,6 +240,11 @@ export default {
     -webkit-box-shadow: 0 4px 8px var(--shadow-color);
     -moz-box-shadow: 0 4px 8px var(--shadow-color);
     box-shadow: 0 4px 8px var(--shadow-color);
+  }
+  .table-wrap .pre-table {
+    background: var(--bg-grey-lighter);
+    padding: 10px;
+    box-sizing: border-box;
   }
 }
 </style>

@@ -18,7 +18,7 @@ export default {
           tblSummary:
             "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
         },
-        paymentData: [
+        tblData: [
           {
             id: "1",
             name: "Joana Linkin",
@@ -29,19 +29,17 @@ export default {
           },
           {
             id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
+            name: "Sammyl Jonas",
+            description: "payment of premium for car insurance",
             date: "11th October, 2018",
-            amount: 345.54
+            amount: 2345.54
           },
           {
             id: "1",
-            name: "Joana Linkin",
-            description:
-              "payment made for the purchase of an electrical wrapping sheet",
+            name: "Steven Seagal",
+            description: "payment made for life assurance",
             date: "11th October, 2018",
-            amount: 345.54
+            amount: 22345.54
           }
         ]
       }
