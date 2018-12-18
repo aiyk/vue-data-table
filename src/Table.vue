@@ -15,6 +15,7 @@
     <div class="tbl-controls">
       <div class="search-wrap">
         <select v-model="searchKey">
+          <option disabled selected="true">filter by...</option>
           <option v-for="(val, key) in datasource.tblData[0]" v-bind:key="key">{{key}}</option>
         </select>
         <input v-model="search" type="search" placeholder="search...">
@@ -40,7 +41,10 @@
           <div v-if="datasource.metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
           </div>
-          <div v-for="(val, key) in item" v-bind:key="key" class="td">{{val}}</div>
+          <div v-for="(val, key) in item" v-bind:key="key" class="td">
+            <span>{{val}}</span>
+            <!-- <input v-bind:value="val" type="text"> -->
+          </div>
           <div v-if="datasource.metaData.trActions" class="td-actions dropdown-wrap">
             <button
               v-on:click="tblmenuitem_onclick(index)"
@@ -52,11 +56,14 @@
                 v-on:click="tblmenuitem_onclick('')"
                 class="dropdown-menu"
               >
+                <!-- <li>
+                  <img src="./assets/icon-set/eye.svg"> View
+                </li>-->
                 <li>
                   <img src="./assets/icon-set/edit.svg"> Edit
                 </li>
                 <li>
-                  <img src="./assets/icon-set/trash.svg"> Delete
+                  <img src="./assets/icon-set/trash-red.svg"> Delete
                 </li>
               </ul>
             </div>
@@ -88,7 +95,8 @@ export default {
       ddmenu_tblitem: false,
       clickItemIndex: null,
       search: "",
-      searchKey: "Name"
+      searchKey: null,
+      thKeys: null
     };
   },
   methods: {
@@ -110,14 +118,21 @@ export default {
   computed: {
     filteredTableData: function() {
       return this.datasource.tblData.filter(item => {
-        // let filterBy = Object.keys(item);
-        // filterBy = item + "." + searchKey;
-        console.log("90909090900909" + item[this.searchKey]);
-        return item[this.searchKey].includes(this.search); //remember to make dynamic
-        //return item[searchKey].find(el => el == this.search);
+        if (this.searchKey) {
+          return item[this.searchKey].includes(this.search);
+        } else {
+          return item;
+        }
       });
     }
+    // computedKeys: function() {
+    //   return Object.keys(this.datasource.tblData[0]);
+    // }
   }
+  // mounted: function() {
+  //   const k = Object.keys(this.datasource.tblData[0]);
+  //   this.thKeys = { ...k };
+  // }
 };
 </script>
 

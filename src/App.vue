@@ -187,9 +187,9 @@ li {
   cursor: pointer;
 }
 .search-wrap {
+  display: flex;
   border-radius: 2px;
   border: 1px solid var(--bg-grey-dark);
-  padding-left: 0.7rem;
   background-color: var(--bg-grey-lighter);
   width: 300px;
 }
@@ -205,5 +205,20 @@ li {
   background-color: var(--bg-grey-lighter);
   font-size: 1.4rem;
   color: var(--text-secondary);
+}
+.search-wrap select {
+  outline: 0;
+  border: 0px;
+  background-color: var(--bg-grey-light);
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-right: 10px;
+}
+.search-wrap select > option {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  background: #f8f8f8;
+  line-height: 2;
+  outline: 0;
 }
 </style>
