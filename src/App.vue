@@ -7,11 +7,15 @@
 
 <script>
 import { mapState } from "vuex";
+import Table from "./Table.vue";
 
 export default {
   computed: mapState({
     datasource: "datasource"
-  })
+  }),
+  components: {
+    "data-table": Table
+  }
 };
 </script>
 

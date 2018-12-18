@@ -14,6 +14,9 @@
 
     <div class="tbl-controls">
       <div class="search-wrap">
+        <select v-model="searchKey">
+          <option v-for="(val, key) in datasource.tblData[0]" v-bind:key="key">{{key}}</option>
+        </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
       <div class="tbl-pagination">
@@ -84,7 +87,8 @@ export default {
       ddmenu_tblmenu: false,
       ddmenu_tblitem: false,
       clickItemIndex: null,
-      search: ""
+      search: "",
+      searchKey: "Name"
     };
   },
   methods: {
@@ -106,15 +110,18 @@ export default {
   computed: {
     filteredTableData: function() {
       return this.datasource.tblData.filter(item => {
-        console.log(item);
-        return item.Name.includes(this.search);
+        // let filterBy = Object.keys(item);
+        // filterBy = item + "." + searchKey;
+        console.log("90909090900909" + item[this.searchKey]);
+        return item[this.searchKey].includes(this.search); //remember to make dynamic
+        //return item[searchKey].find(el => el == this.search);
       });
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .table-wrap {
   width: 100%;
   background: #fff;
