@@ -1,18 +1,17 @@
 <template>
   <div id="app">
     <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
-    <data-table v-bind:datasource="datasource"></data-table>
+    <data-table v-bind:metaData="metaData" v-bind:tblData="tblData"></data-table>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import Table from "./Table.vue";
 
 export default {
-  computed: mapState({
-    datasource: "datasource"
-  }),
+  computed: mapGetters(["metaData", "tblData"]),
   components: {
     "data-table": Table
   }

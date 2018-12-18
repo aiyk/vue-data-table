@@ -2,8 +2,8 @@
   <div id="data-table" class="table-wrap">
     <div class="pre-table">
       <div class="table-titles">
-        <div class="table-title">{{datasource.metaData.tblTitle}}</div>
-        <div class="table-subtitle">{{datasource.metaData.tblSubtitle}}</div>
+        <div class="table-title">{{metaData.tblTitle}}</div>
+        <div class="table-subtitle">{{metaData.tblSubtitle}}</div>
       </div>
       <div class="table-ctas">
         <button class="btn btn-blue">
@@ -15,8 +15,7 @@
     <div class="tbl-controls">
       <div class="search-wrap">
         <select v-model="searchKey">
-          <option disabled selected="true">filter by...</option>
-          <option v-for="(val, key) in datasource.tblData[0]" v-bind:key="key">{{key}}</option>
+          <option v-for="(val, key) in tblData[0]" v-bind:key="key">{{key}}</option>
         </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
@@ -30,22 +29,22 @@
     <div class="tbl">
       <div v-for="(item, index) in filteredTableData" v-bind:key="index">
         <div v-if="index===0" class="tr thead">
-          <div v-if="datasource.metaData.trCheckbox" class="td-actions"></div>
+          <div v-if="metaData.trCheckbox" class="td-actions"></div>
           <div v-for="(val, key) in item" v-bind:key="key" class="th">
             <span>{{key}}</span>
             <img src="./assets/icon-set/filter.svg">
           </div>
-          <div v-if="datasource.metaData.trActions" class="td-actions"></div>
+          <div v-if="metaData.trActions" class="td-actions"></div>
         </div>
         <div class="tr tbody">
-          <div v-if="datasource.metaData.trCheckbox" class="td-actions">
+          <div v-if="metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
           </div>
           <div v-for="(val, key) in item" v-bind:key="key" class="td">
             <span>{{val}}</span>
             <!-- <input v-bind:value="val" type="text"> -->
           </div>
-          <div v-if="datasource.metaData.trActions" class="td-actions dropdown-wrap">
+          <div v-if="metaData.trActions" class="td-actions dropdown-wrap">
             <button
               v-on:click="tblmenuitem_onclick(index)"
               class="btn-hollow btn-elipsis-v-center btn-x0"
@@ -78,17 +77,14 @@
         <img src="./assets/icon-set/angle-left.svg">
         <img src="./assets/icon-set/angle-right.svg">
       </div>
-      <div
-        v-if="datasource.metaData.tblSummary"
-        class="table-subtitle"
-      >{{datasource.metaData.tblSummary}}</div>
+      <div v-if="metaData.tblSummary" class="table-subtitle">{{metaData.tblSummary}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["datasource"],
+  props: ["metaData", "tblData"],
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -117,22 +113,13 @@ export default {
   },
   computed: {
     filteredTableData: function() {
-      return this.datasource.tblData.filter(item => {
-        if (this.searchKey) {
-          return item[this.searchKey].includes(this.search);
-        } else {
-          return item;
-        }
-      });
+      let criteria = [];
+      criteria.push(this.searchKey);
+      criteria.push(this.search);
+
+      return this.$store.getters.filteredTblData(criteria);
     }
-    // computedKeys: function() {
-    //   return Object.keys(this.datasource.tblData[0]);
-    // }
   }
-  // mounted: function() {
-  //   const k = Object.keys(this.datasource.tblData[0]);
-  //   this.thKeys = { ...k };
-  // }
 };
 </script>
 

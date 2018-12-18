@@ -1,3 +1,5 @@
+import { mapGetters } from 'vuex'
+
 //initial state
 const state = {
     metaData: {
@@ -81,6 +83,25 @@ const state = {
     ]
 }
 
+export const getters = {
+    metaData: state => {
+        return state.metaData
+    },
+    tblData: state => {
+        return state.tblData
+    },
+    filteredTblData: state => criteria => {
+        return state.tblData.filter(item => {
+            if (criteria[0]) {
+                return item[criteria[0]].includes(criteria[1]);
+            } else {
+                return item;
+            }
+        });
+    }
+}
+
 export default {
-    state
+    state,
+    getters
 };
