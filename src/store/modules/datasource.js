@@ -1,3 +1,4 @@
+//import { database } from '../../firebase/firebase'
 import { mapGetters } from 'vuex'
 
 //initial state
@@ -93,7 +94,7 @@ export const getters = {
     filteredTblData: state => criteria => {
         return state.tblData.filter(item => {
             if (criteria[0]) {
-                return item[criteria[0]].includes(criteria[1]);
+                return item[criteria[0]].toLowerCase().includes(criteria[1].toLowerCase());
             } else {
                 return item;
             }

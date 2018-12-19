@@ -145,8 +145,10 @@ li {
   color: var(--text-primary);
   cursor: pointer;
   &:hover {
+    border: 0.1rem solid #eee;
     background-color: #fff;
   }
+  outline: 0;
 }
 .btn-x0 {
   width: 4rem;
@@ -227,5 +229,25 @@ li {
   background: #f8f8f8;
   line-height: 2;
   outline: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

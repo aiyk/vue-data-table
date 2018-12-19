@@ -47,7 +47,7 @@
               v-on:keyup.enter="editTblData([$event, key, item.ID])"
               v-on:keyup.tab="editTblData([$event, key, item.ID])"
               v-show="item_to_edit(index)"
-              @blur="editTr_onclick('')"
+              @blur="editTblData([$event, key, item.ID]), editTr_onclick('')"
               type="text"
               class="td-edit-input"
             >
@@ -58,21 +58,23 @@
               class="btn-hollow btn-elipsis-v-center btn-x0"
             ></button>
             <div class="dropdown-wrap">
-              <ul
-                v-show="item_to_show(index)"
-                v-on:click="tblmenuitem_onclick('')"
-                class="dropdown-menu"
-              >
-                <!-- <li>
-                  <img src="./assets/icon-set/eye.svg"> View
-                </li>-->
-                <li v-on:click="editTr_onclick(index)">
-                  <img src="./assets/icon-set/edit.svg"> Edit
-                </li>
-                <li>
-                  <img src="./assets/icon-set/trash-red.svg"> Delete
-                </li>
-              </ul>
+              <transition name="slide-fade">
+                <ul
+                  v-show="item_to_show(index)"
+                  v-on:click="tblmenuitem_onclick('')"
+                  class="dropdown-menu"
+                >
+                  <!-- <li>
+                    <img src="./assets/icon-set/eye.svg"> View
+                  </li>-->
+                  <li v-on:click="editTr_onclick(index)">
+                    <img src="./assets/icon-set/edit.svg"> Edit
+                  </li>
+                  <li>
+                    <img src="./assets/icon-set/trash-red.svg"> Delete
+                  </li>
+                </ul>
+              </transition>
             </div>
           </div>
         </div>
