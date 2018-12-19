@@ -41,14 +41,16 @@
             <input type="checkbox">
           </div>
           <div v-for="(val, key) in item" v-bind:key="key" class="td">
-            <span>{{val}}</span>
+            <span v-show="!item_to_edit(index)">{{val}}</span>
             <input
               v-bind:value="val"
               v-on:keyup.enter="editTblData([$event, key, item.ID])"
               v-on:keyup.tab="editTblData([$event, key, item.ID])"
+              v-show="item_to_edit(index)"
+              @blur="editTr_onclick('')"
               type="text"
+              class="td-edit-input"
             >
-            <!-- send ITEM.ID and KEY to edit said row -->
           </div>
           <div v-if="metaData.trActions" class="td-actions dropdown-wrap">
             <button
@@ -64,7 +66,7 @@
                 <!-- <li>
                   <img src="./assets/icon-set/eye.svg"> View
                 </li>-->
-                <li>
+                <li v-on:click="editTr_onclick(index)">
                   <img src="./assets/icon-set/edit.svg"> Edit
                 </li>
                 <li>
@@ -96,6 +98,7 @@ export default {
       ddmenu_tblmenu: false,
       ddmenu_tblitem: false,
       clickItemIndex: null,
+      editTrIndex: null,
       search: "",
       searchKey: null,
       thKeys: null
@@ -104,6 +107,9 @@ export default {
   methods: {
     item_to_show: function(i) {
       return this.clickItemIndex === i;
+    },
+    item_to_edit: function(i) {
+      return this.editTrIndex === i;
     },
     tblmenu_onclick: function() {
       this.ddmenu_tblmenu = !this.ddmenu_tblmenu;
@@ -115,6 +121,13 @@ export default {
         this.clickItemIndex = itemIndex;
       }
       this.ddmenu_tblitem = !this.ddmenu_tblitem;
+    },
+    editTr_onclick: function(itemIndex) {
+      if (this.editTrIndex == itemIndex) {
+        this.editTrIndex = null;
+      } else {
+        this.editTrIndex = itemIndex;
+      }
     }
   },
   computed: {
@@ -228,6 +241,11 @@ export default {
       margin-left: 20px;
     }
   }
+}
+.td-edit-input {
+  padding: 8px;
+  outline: 0px;
+  border: 1px solid rgb(238, 238, 238);
 }
 
 @media only screen and (max-width: 650px) {
