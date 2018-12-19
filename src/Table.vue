@@ -42,7 +42,13 @@
           </div>
           <div v-for="(val, key) in item" v-bind:key="key" class="td">
             <span>{{val}}</span>
-            <!-- <input v-bind:value="val" type="text"> -->
+            <input
+              v-bind:value="val"
+              v-on:keyup.enter="editTblData([$event, key, item.ID])"
+              v-on:keyup.tab="editTblData([$event, key, item.ID])"
+              type="text"
+            >
+            <!-- send ITEM.ID and KEY to edit said row -->
           </div>
           <div v-if="metaData.trActions" class="td-actions dropdown-wrap">
             <button
@@ -84,7 +90,7 @@
 
 <script>
 export default {
-  props: ["metaData", "tblData"],
+  props: ["metaData", "tblData", "editTblData"],
   data() {
     return {
       ddmenu_tblmenu: false,

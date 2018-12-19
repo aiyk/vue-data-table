@@ -1,19 +1,27 @@
 <template>
   <div id="app">
     <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
-    <data-table v-bind:metaData="metaData" v-bind:tblData="tblData"></data-table>
+    <data-table
+      v-bind:metaData="metaData"
+      v-bind:tblData="tblData"
+      v-bind:editTblData="editTblData"
+    ></data-table>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 import Table from "./Table.vue";
 
 export default {
   computed: mapGetters(["metaData", "tblData"]),
   components: {
     "data-table": Table
+  },
+  methods: {
+    ...mapMutations(["editTblData"])
   }
 };
 </script>

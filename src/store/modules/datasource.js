@@ -101,7 +101,15 @@ export const getters = {
     }
 }
 
+export const mutations = {
+    editTblData(state, payload) {
+        let dataBack = state.tblData.find(data => data.ID === payload[2]);
+        dataBack[payload[1]] = payload[0].srcElement.value;
+    }
+}
+
 export default {
     state,
-    getters
+    getters,
+    mutations
 };
