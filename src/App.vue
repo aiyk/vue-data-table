@@ -3,8 +3,8 @@
     <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
     <data-table
       v-bind:metaData="metaData"
-      v-bind:tblData="tblData"
-      v-bind:editTblData="editTblData"
+      v-bind:collections="collections"
+      v-bind:editTblData="editCollections"
     ></data-table>
   </div>
 </template>
@@ -16,12 +16,15 @@ import { mapMutations } from "vuex";
 import Table from "./Table.vue";
 
 export default {
-  computed: mapGetters(["metaData", "tblData"]),
+  beforeCreate() {
+    this.$store.dispatch("fetchCollections");
+  },
+  computed: mapGetters(["metaData", "collections"]),
   components: {
     "data-table": Table
   },
   methods: {
-    ...mapMutations(["editTblData"])
+    ...mapMutations(["editCollections"])
   }
 };
 </script>

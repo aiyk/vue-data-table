@@ -15,7 +15,7 @@
     <div class="tbl-controls">
       <div class="search-wrap">
         <select v-model="searchKey">
-          <option v-for="(val, key) in tblData[0]" v-bind:key="key">{{key}}</option>
+          <option v-for="(val, key) in collections[0]" v-bind:key="key">{{key}}</option>
         </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="tbl">
-      <div v-for="(item, index) in filteredTableData" v-bind:key="index">
+      <div v-for="(item, index) in filteredCollections" v-bind:key="index">
         <div v-if="index===0" class="tr thead">
           <div v-if="metaData.trCheckbox" class="td-actions"></div>
           <div v-for="(val, key) in item" v-bind:key="key" class="th">
@@ -44,10 +44,10 @@
             <span v-show="!item_to_edit(index)">{{val}}</span>
             <input
               v-bind:value="val"
-              v-on:keyup.enter="editTblData([$event, key, item.ID])"
-              v-on:keyup.tab="editTblData([$event, key, item.ID])"
+              v-on:keyup.enter="editCollections([$event, key, item.ID])"
+              v-on:keyup.tab="editCollections([$event, key, item.ID])"
               v-show="item_to_edit(index)"
-              @blur="editTblData([$event, key, item.ID]), editTr_onclick('')"
+              @blur="editCollections([$event, key, item.ID]), editTr_onclick('')"
               type="text"
               class="td-edit-input"
             >
@@ -94,7 +94,7 @@
 
 <script>
 export default {
-  props: ["metaData", "tblData", "editTblData"],
+  props: ["metaData", "collections", "editCollections"],
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -133,12 +133,12 @@ export default {
     }
   },
   computed: {
-    filteredTableData: function() {
+    filteredCollections: function() {
       let criteria = [];
       criteria.push(this.searchKey);
       criteria.push(this.search);
 
-      return this.$store.getters.filteredTblData(criteria);
+      return this.$store.getters.filteredCollections(criteria);
     }
   }
 };

@@ -1,4 +1,4 @@
-//import { initializeApp, database } from 'firebase';
+import { initializeApp, database } from 'firebase';
 
 // Initialize Firebase
 const config = {
