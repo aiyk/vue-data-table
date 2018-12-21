@@ -102,8 +102,9 @@ export default {
       clickItemIndex: null,
       editTrIndex: null,
       search: "",
-      searchKey: null,
-      thKeys: null
+      searchKey: "",
+      thKeys: null,
+      criteria: { search_key: "", search_val: "" }
     };
   },
   methods: {
@@ -134,11 +135,10 @@ export default {
   },
   computed: {
     filteredCollections: function() {
-      let criteria = [];
-      criteria.push(this.searchKey);
-      criteria.push(this.search);
-
-      return this.$store.getters.filteredCollections(criteria);
+      this.criteria.search_key = this.searchKey;
+      this.criteria.search_val = this.search;
+      // console.log("level 1", this.criteria);
+      return this.$store.getters.filteredCollections(this.criteria);
     }
   }
 };

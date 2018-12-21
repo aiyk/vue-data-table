@@ -1,5 +1,4 @@
 import firebase from '../../firebase/firebase'
-import { mapGetters } from 'vuex'
 
 const collections = firebase.database.ref('collections');
 
@@ -23,13 +22,20 @@ export const getters = {
         return state.collections || [];
     },
     filteredCollections: state => criteria => {
-        return state.collections.filter(item => {
-            if (criteria[0]) {
-                return item[criteria[0]].toLowerCase().includes(criteria[1].toLowerCase());
-            } else {
-                return item;
-            }
-        });
+        if (criteria.search_key) {
+            const search_criteria = criteria.search_val.toLowerCase();
+
+            return Object.values(state.collections).filter(item => {
+                if (item[criteria.search_key]) {
+                    const to_compare = item[criteria.search_key].toLowerCase();
+                    console.log('***COMPARE**** =>', to_compare, '****BY****', search_criteria);
+                    console.log(to_compare.includes(search_criteria));
+                    return to_compare.includes(search_criteria)
+                }
+            });
+        } else {
+            return state.collections;
+        }
     }
 }
 

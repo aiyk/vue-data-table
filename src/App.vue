@@ -4,7 +4,7 @@
     <data-table
       v-bind:metaData="metaData"
       v-bind:collections="collections"
-      v-bind:editTblData="editCollections"
+      v-bind:editCollections="editCollections"
     ></data-table>
   </div>
 </template>
