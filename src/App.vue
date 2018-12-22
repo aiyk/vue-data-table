@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
-    <data-table
-      v-bind:metaData="metaData"
-      v-bind:collections="collections"
-      v-bind:editCollections="editCollections"
-    ></data-table>
+    <data-table v-bind:metaData="metaData" v-bind:collections="collections"></data-table>
   </div>
 </template>
 

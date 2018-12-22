@@ -27,10 +27,10 @@
     </div>
 
     <div class="tbl">
-      <div v-for="(item, index) in filteredCollections" v-bind:key="index">
-        <div v-if="index===0" class="tr thead">
+      <div v-for="(item, index) in loadedCollection" v-bind:key="index">
+        <div v-if="index==0" class="tr thead">
           <div v-if="metaData.trCheckbox" class="td-actions"></div>
-          <div v-for="(val, key) in item" v-bind:key="key" class="th">
+          <div v-for="(val, key) in item" v-bind:key="key" v-on:click="loadedCollection" class="th">
             <span>{{key}}</span>
             <img src="./assets/icon-set/filter.svg">
           </div>
@@ -44,10 +44,8 @@
             <span v-show="!item_to_edit(index)">{{val}}</span>
             <input
               v-bind:value="val"
-              v-on:keyup.enter="editCollections([$event, key, item.ID])"
-              v-on:keyup.tab="editCollections([$event, key, item.ID])"
               v-show="item_to_edit(index)"
-              @blur="editCollections([$event, key, item.ID]), editTr_onclick('')"
+              @blur="updateCollections([$event, key, item.ID]), editTr_onclick('')"
               type="text"
               class="td-edit-input"
             >
@@ -93,8 +91,10 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
-  props: ["metaData", "collections", "editCollections"],
+  props: ["metaData", "collections"],
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -131,13 +131,13 @@ export default {
       } else {
         this.editTrIndex = itemIndex;
       }
-    }
+    },
+    ...mapMutations(["updateCollections"])
   },
   computed: {
-    filteredCollections: function() {
+    loadedCollection: function() {
       this.criteria.search_key = this.searchKey;
       this.criteria.search_val = this.search;
-      // console.log("level 1", this.criteria);
       return this.$store.getters.filteredCollections(this.criteria);
     }
   }

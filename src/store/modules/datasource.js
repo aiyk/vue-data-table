@@ -28,9 +28,20 @@ export const getters = {
             return Object.values(state.collections).filter(item => {
                 if (item[criteria.search_key]) {
                     const to_compare = item[criteria.search_key].toLowerCase();
-                    console.log('***COMPARE**** =>', to_compare, '****BY****', search_criteria);
-                    console.log(to_compare.includes(search_criteria));
                     return to_compare.includes(search_criteria)
+                }
+            });
+        } else {
+            return state.collections;
+        }
+    },
+    sortedCollections: state => sort_key => {
+        if (sort_key) {
+            return Object.values(state.collections).filter(item => {
+                if (item[sort_key]) {
+                    console.log(item);
+                    // const to_compare = item[0].toLowerCase();
+                    // return to_compare.equals(sort_key)
                 }
             });
         } else {
@@ -40,10 +51,18 @@ export const getters = {
 }
 
 export const mutations = {
-    editCollections(state, payload) {
-        let dataBack = state.collections.find(data => data.ID === payload[2]);
-        //dataBack[payload[1]] = payload[0].srcElement.value;
-        collections.child(dataBack[payload[1]]).set(payload[0].srcElement.value);
+    updateCollections(state, payload) {
+        let dataBack = Object.values(state.collections).find(data => data.ID == payload[2]);
+        const item_index = Object.values(dataBack).indexOf(dataBack[payload[1]]);
+        const obj_index = Object.values(state.collections).findIndex(data => data.ID == payload[2]);
+        const keyBack = Object.keys(dataBack);
+        const req_payload = payload[0].srcElement.value;
+        const req_header = keyBack[item_index];
+
+        dataBack[req_header] = req_payload;
+        collections.child(obj_index).update(dataBack, function () {
+            console.log(obj_index);
+        });
     },
     setCollections(state, payload) {
         state.collections = payload;
