@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <!-- <data-table v-bind:tableData="tableData" v-bind:tableMeta="tableMeta"></data-table> -->
-    <data-table v-bind:metaData="metaData" v-bind:collections="collections"></data-table>
+    <data-table
+      v-bind:metaData="metaData"
+      v-bind:collections="collections"
+      v-bind:collections_keys="collections_keys"
+    ></data-table>
   </div>
 </template>
 
@@ -15,7 +19,7 @@ export default {
   beforeCreate() {
     this.$store.dispatch("fetchCollections");
   },
-  computed: mapGetters(["metaData", "collections"]),
+  computed: mapGetters(["metaData", "collections", "collections_keys"]),
   components: {
     "data-table": Table
   },

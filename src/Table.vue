@@ -15,7 +15,7 @@
     <div class="tbl-controls">
       <div class="search-wrap">
         <select v-model="searchKey">
-          <option v-for="(val, key) in collections[0]" v-bind:key="key">{{key}}</option>
+          <option v-for="key in collections_keys" v-bind:key="key">{{key}}</option>
         </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
@@ -27,16 +27,23 @@
     </div>
 
     <div class="tbl">
-      <div v-for="(item, index) in loadedCollection" v-bind:key="index">
-        <div v-if="index==0" class="tr thead">
+      <div>
+        <div class="tr thead">
           <div v-if="metaData.trCheckbox" class="td-actions"></div>
-          <div v-for="(val, key) in item" v-bind:key="key" v-on:click="loadedCollection" class="th">
-            <span>{{key}}</span>
+          <div
+            v-for="th in collections_keys"
+            v-bind:key="th"
+            v-on:click="loadedCollection"
+            class="th"
+          >
+            <span>{{th}}</span>
             <img src="./assets/icon-set/filter.svg">
           </div>
           <div v-if="metaData.trActions" class="td-actions"></div>
         </div>
-        <div class="tr tbody">
+      </div>
+      <div v-for="(item, index) in loadedCollection" v-bind:key="index">
+        <div v-if="item != undefined && item != null" class="tr tbody">
           <div v-if="metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
           </div>
@@ -65,10 +72,10 @@
                   <!-- <li>
                     <img src="./assets/icon-set/eye.svg"> View
                   </li>-->
-                  <li v-on:click="editTr_onclick(index)">
+                  <li v-on:click.stop="editTr_onclick(index), tblmenuitem_onclick('')">
                     <img src="./assets/icon-set/edit.svg"> Edit
                   </li>
-                  <li>
+                  <li v-on:click.stop="deleteCollection([item.ID]), tblmenuitem_onclick('')">
                     <img src="./assets/icon-set/trash-red.svg"> Delete
                   </li>
                 </ul>
@@ -94,7 +101,7 @@
 import { mapMutations } from "vuex";
 
 export default {
-  props: ["metaData", "collections"],
+  props: ["metaData", "collections", "collections_keys"],
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -132,7 +139,10 @@ export default {
         this.editTrIndex = itemIndex;
       }
     },
-    ...mapMutations(["updateCollections"])
+    deleteTr_onclick: function(itemIndex) {
+      collections.splice(itemIndex, 1);
+    },
+    ...mapMutations(["updateCollections", "deleteCollection"])
   },
   computed: {
     loadedCollection: function() {

@@ -21,6 +21,10 @@ export const getters = {
     collections: state => {
         return state.collections || [];
     },
+    collections_keys: state => {
+        let obj = Object.values(state.collections);
+        return Object.keys(obj[0])
+    },
     filteredCollections: state => criteria => {
         if (criteria.search_key) {
             const search_criteria = criteria.search_val.toLowerCase();
@@ -63,6 +67,12 @@ export const mutations = {
         collections.child(obj_index).update(dataBack, function () {
             console.log(obj_index);
         });
+    },
+    deleteCollection(state, payload) {
+        const obj_index = Object.values(state.collections).findIndex(data => data.ID == payload);
+        collections.child(obj_index).remove();
+        console.log(obj_index);
+        console.log(Object.keys(state.collections));
     },
     setCollections(state, payload) {
         state.collections = payload;
