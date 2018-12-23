@@ -118,10 +118,8 @@ export default {
 
       pagination_data: {
         currentPage: 0,
-        perPage: 5,
-        pageIncrement: 1,
-        totalPages: 0,
-        multiplier: 1
+        perPage: 0,
+        totalPages: 0
       }
     };
   },
