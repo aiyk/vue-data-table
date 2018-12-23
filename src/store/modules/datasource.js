@@ -11,7 +11,8 @@ const state = {
         trCheckbox: false,
         tblSummary: "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
     },
-    collections: []
+    collections: [],
+    sortState: true
 }
 
 export const getters = {
@@ -38,23 +39,22 @@ export const getters = {
         } else {
             return state.collections;
         }
-    },
-    sortedCollections: state => sort_key => {
-        if (sort_key) {
-            return Object.values(state.collections).filter(item => {
-                if (item[sort_key]) {
-                    console.log(item);
-                    // const to_compare = item[0].toLowerCase();
-                    // return to_compare.equals(sort_key)
-                }
-            });
-        } else {
-            return state.collections;
-        }
     }
 }
 
 export const mutations = {
+    sortCollections(state, sort_key) {
+        state.sortState = !state.sortState;
+        if (state.sortState) {
+            state.collections.sort(
+                (a, b) => parseFloat(a[sort_key]) - parseFloat(b[sort_key])
+            );
+        } else {
+            state.collections.sort(
+                (a, b) => parseFloat(b[sort_key]) - parseFloat(a[sort_key])
+            );
+        }
+    },
     updateCollections(state, payload) {
         let dataBack = Object.values(state.collections).find(data => data.ID == payload[2]);
         const item_index = Object.values(dataBack).indexOf(dataBack[payload[1]]);

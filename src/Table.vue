@@ -29,7 +29,7 @@
           <div
             v-for="th in collections_keys"
             v-bind:key="th"
-            v-on:click="loadedCollection"
+            v-on:click="sortCollections([th])"
             class="th"
           >
             <span>{{th}}</span>
@@ -142,7 +142,6 @@ export default {
       this.ddmenu_tblitem = !this.ddmenu_tblitem;
     },
     editTr_onclick: function(itemIndex) {
-      console.log(this.loadedCollection);
       if (this.editTrIndex == itemIndex) {
         this.editTrIndex = null;
       } else {
@@ -169,7 +168,11 @@ export default {
         data: paginatedItems
       };
     },
-    ...mapMutations(["updateCollections", "deleteCollection"])
+    ...mapMutations([
+      "sortCollections",
+      "updateCollections",
+      "deleteCollection"
+    ])
   },
   computed: {
     loadedCollection: function(fake, page = 1, perPage = 5) {

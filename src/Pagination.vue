@@ -1,8 +1,8 @@
 <template>
   <div class="tbl-pagination">
     <span>
-      {{pagination_data.currentPage}}
-      of {{pagination_data.totalPages}}
+      showing page {{pagination_data.currentPage}}
+      out of {{pagination_data.totalPages}} pages
     </span>
     <img v-on:click="prev" src="./assets/icon-set/angle-left.svg">
     <img v-on:click="next" src="./assets/icon-set/angle-right.svg">
