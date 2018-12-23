@@ -46,13 +46,17 @@ export const mutations = {
     sortCollections(state, sort_key) {
         state.sortState = !state.sortState;
         if (state.sortState) {
-            state.collections.sort(
-                (a, b) => parseFloat(a[sort_key]) - parseFloat(b[sort_key])
-            );
+            state.collections.sort(function (a, b) {
+                if (a[sort_key] < b[sort_key]) { return -1; }
+                if (a[sort_key] > b[sort_key]) { return 1; }
+                return 0;
+            })
         } else {
-            state.collections.sort(
-                (a, b) => parseFloat(b[sort_key]) - parseFloat(a[sort_key])
-            );
+            state.collections.sort(function (a, b) {
+                if (a[sort_key] > b[sort_key]) { return -1; }
+                if (a[sort_key] < b[sort_key]) { return 1; }
+                return 0;
+            })
         }
     },
     updateCollections(state, payload) {
