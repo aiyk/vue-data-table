@@ -19,7 +19,7 @@
         </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
-      <pagination v-bind:collection="loadedCollection"/>
+      <pagination v-bind:collection="loadedCollection" v-bind:pagination_data="pagination_data"/>
     </div>
 
     <div class="tbl">
@@ -83,7 +83,7 @@
     </div>
 
     <div class="tbl-controls">
-      <pagination v-bind:collection="loadedCollection"/>
+      <pagination v-bind:collection="loadedCollection" v-bind:pagination_data="pagination_data"/>
       <div v-if="metaData.tblSummary" class="table-subtitle">{{metaData.tblSummary}}</div>
     </div>
   </div>
@@ -94,6 +94,12 @@ import { mapMutations } from "vuex";
 import Pagination from "./Pagination.vue";
 
 export default {
+  mounted() {
+    this.pagination_data.currentPage = this.loadedCollection.currentPage;
+    this.pagination_data.perPage = this.loadedCollection.perPage;
+    this.pagination_data.pageIncrement = this.loadedCollection.perPage;
+    this.pagination_data.totalPages = this.loadedCollection.totalPages;
+  },
   props: ["metaData", "collections", "collections_keys"],
   components: {
     pagination: Pagination
@@ -104,10 +110,19 @@ export default {
       ddmenu_tblitem: false,
       clickItemIndex: null,
       editTrIndex: null,
+
       search: "",
       searchKey: "",
       thKeys: null,
-      criteria: { search_key: "", search_val: "" }
+      criteria: { search_key: "", search_val: "" },
+
+      pagination_data: {
+        currentPage: 0,
+        perPage: 5,
+        pageIncrement: 1,
+        totalPages: 0,
+        multiplier: 1
+      }
     };
   },
   methods: {
@@ -148,8 +163,6 @@ export default {
       const offset = (page - 1) * perPage;
       const paginatedItems = collection.slice(offset, offset + perPage);
 
-      console.log("[[[[PAGE]]]]", currentPage);
-      console.log("[[[[PERPAGE]]]]", perPage);
       return {
         currentPage,
         perPage,
@@ -164,8 +177,20 @@ export default {
     loadedCollection: function(fake, page = 1, perPage = 5) {
       this.criteria.search_key = this.searchKey;
       this.criteria.search_val = this.search;
+
       const getdata = this.$store.getters.filteredCollections(this.criteria);
-      return this.paginate(getdata, page, perPage);
+
+      if (!this.pagination_data.currentPage) {
+        this.pagination_data.currentPage = 1;
+      }
+      if (!this.pagination_data.perPage) {
+        this.pagination_data.perPage = 5;
+      }
+      return this.paginate(
+        getdata,
+        this.pagination_data.currentPage,
+        this.pagination_data.perPage
+      );
     }
   }
 };

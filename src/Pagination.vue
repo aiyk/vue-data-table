@@ -1,6 +1,10 @@
 <template>
   <div class="tbl-pagination">
-    <span>{{currentPage}} - {{perPage * multiplier}} of {{total}}</span>
+    <span>
+      {{pagination_data.currentPage}}
+      - {{pagination_data.pageIncrement ? (pagination_data.pageIncrement) : (1)}}
+      of {{pagination_data.totalPages}}
+    </span>
     <img v-on:click="prev" src="./assets/icon-set/angle-left.svg">
     <img v-on:click="next" src="./assets/icon-set/angle-right.svg">
   </div>
@@ -8,32 +12,36 @@
 
 <script>
 export default {
-  mounted() {
-    this.currentPage = this.collection.currentPage;
-    this.perPage = this.collection.perPage;
-    this.total = this.collection.total;
-  },
-  props: ["collection"],
-  data: function() {
-    return {
-      currentPage: null,
-      perPage: null,
-      total: null,
-      multiplier: 1
-    };
-  },
+  props: ["collection", "pagination_data"],
   methods: {
     prev: function() {
-      console.log("nnnnnnnnnnn", this.collection);
-      this.currentPage -= this.perPage;
-      this.multiplier -= 1;
-      this.collection(null, this.currentPage, this.perPage);
+      if (
+        this.pagination_data.currentPage <= 1 ||
+        this.pagination_data.pageIncrement <= 5
+      ) {
+        this.pagination_data.currentPage = 1;
+        this.pagination_data.perPage = 5;
+      } else {
+        this.pagination_data.currentPage -= this.pagination_data.perPage;
+        this.pagination_data.multiplier -= 1;
+        this.pagination_data.pageIncrement =
+          this.pagination_data.multiplier * this.pagination_data.perPage;
+      }
     },
     next: function() {
-      console.log("nnnnnnnnnnn", this.collection);
-      this.currentPage += this.perPage;
-      this.multiplier += 1;
-      this.collection(null, this.currentPage, this.perPage);
+      if (
+        this.pagination_data.currentPage >=
+          this.pagination_data.totalPagesPages - 4 ||
+        this.pagination_data.pageIncrement >= this.pagination_data.totalPages
+      ) {
+        this.pagination_data.currentPage = this.pagination_data.totalPages - 4;
+        this.pagination_data.pageIncrement = this.pagination_data.totalPages;
+      } else {
+        this.pagination_data.currentPage += this.pagination_data.perPage;
+        this.pagination_data.multiplier += 1;
+        this.pagination_data.pageIncrement =
+          this.pagination_data.multiplier * this.pagination_data.perPage;
+      }
     }
   }
 };
