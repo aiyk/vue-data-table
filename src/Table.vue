@@ -19,11 +19,7 @@
         </select>
         <input v-model="search" type="search" placeholder="search...">
       </div>
-      <div class="tbl-pagination">
-        <span>1 - 10 of 100</span>
-        <img src="./assets/icon-set/angle-left.svg">
-        <img src="./assets/icon-set/angle-right.svg">
-      </div>
+      <pagination v-bind:collection="loadedCollection"/>
     </div>
 
     <div class="tbl">
@@ -42,7 +38,7 @@
           <div v-if="metaData.trActions" class="td-actions"></div>
         </div>
       </div>
-      <div v-for="(item, index) in loadedCollection" v-bind:key="index">
+      <div v-for="(item, index) in loadedCollection.data" v-bind:key="index">
         <div v-if="item != undefined && item != null" class="tr tbody">
           <div v-if="metaData.trCheckbox" class="td-actions">
             <input type="checkbox">
@@ -87,11 +83,7 @@
     </div>
 
     <div class="tbl-controls">
-      <div class="tbl-pagination">
-        <span>1 - 10 of 100</span>
-        <img src="./assets/icon-set/angle-left.svg">
-        <img src="./assets/icon-set/angle-right.svg">
-      </div>
+      <pagination v-bind:collection="loadedCollection"/>
       <div v-if="metaData.tblSummary" class="table-subtitle">{{metaData.tblSummary}}</div>
     </div>
   </div>
@@ -99,9 +91,13 @@
 
 <script>
 import { mapMutations } from "vuex";
+import Pagination from "./Pagination.vue";
 
 export default {
   props: ["metaData", "collections", "collections_keys"],
+  components: {
+    pagination: Pagination
+  },
   data() {
     return {
       ddmenu_tblmenu: false,
@@ -133,6 +129,7 @@ export default {
       this.ddmenu_tblitem = !this.ddmenu_tblitem;
     },
     editTr_onclick: function(itemIndex) {
+      console.log(this.loadedCollection);
       if (this.editTrIndex == itemIndex) {
         this.editTrIndex = null;
       } else {
@@ -142,13 +139,33 @@ export default {
     deleteTr_onclick: function(itemIndex) {
       collections.splice(itemIndex, 1);
     },
+    paginate: function(collection, page, numItems) {
+      if (!Array.isArray(collection)) {
+        throw `Expect array and got ${typeof collection}`;
+      }
+      const currentPage = parseInt(page);
+      const perPage = parseInt(numItems);
+      const offset = (page - 1) * perPage;
+      const paginatedItems = collection.slice(offset, offset + perPage);
+
+      console.log("[[[[PAGE]]]]", currentPage);
+      console.log("[[[[PERPAGE]]]]", perPage);
+      return {
+        currentPage,
+        perPage,
+        total: collection.length,
+        totalPages: Math.ceil(collection.length / perPage),
+        data: paginatedItems
+      };
+    },
     ...mapMutations(["updateCollections", "deleteCollection"])
   },
   computed: {
-    loadedCollection: function() {
+    loadedCollection: function(fake, page = 1, perPage = 5) {
       this.criteria.search_key = this.searchKey;
       this.criteria.search_val = this.search;
-      return this.$store.getters.filteredCollections(this.criteria);
+      const getdata = this.$store.getters.filteredCollections(this.criteria);
+      return this.paginate(getdata, page, perPage);
     }
   }
 };
@@ -242,17 +259,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin: 30px 0 5px 0;
-  .tbl-pagination {
-    display: flex;
-    color: var(--disabled);
-    span {
-      padding-left: 20px;
-    }
-    img {
-      cursor: pointer;
-      margin-left: 20px;
-    }
-  }
 }
 .td-edit-input {
   padding: 8px;

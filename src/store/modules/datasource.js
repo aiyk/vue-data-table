@@ -23,7 +23,7 @@ export const getters = {
     },
     collections_keys: state => {
         let obj = Object.values(state.collections);
-        return Object.keys(obj[0])
+        return Object.keys(obj[0]) || [];
     },
     filteredCollections: state => criteria => {
         if (criteria.search_key) {
