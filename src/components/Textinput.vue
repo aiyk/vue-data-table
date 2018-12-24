@@ -9,8 +9,8 @@
       v-bind:name="params.name"
       v-bind:value="params.value"
       v-bind:type="params.type"
-      v-bind:ref="params.name"
       @blur="updateObj"
+      v-model="payload.val"
     >
     <div v-if="error" class="invalid-feedback">{{error}}</div>
   </div>
@@ -30,13 +30,10 @@ export default {
   },
   methods: {
     updateObj: function() {
-      let inputVal = this.$refs[this.params.name].value;
-      if (inputVal) {
-        payload.name = this.params.name;
-        payload.val = inputVal;
-        this.$refs[this.params.name].innerHTML = inputVal;
+      this.payload.name = this.params.name;
+      if (this.payload.val) {
         this.error = null;
-        this.params._return(payload);
+        this.params._return(this.payload);
       } else {
         this.error = `${this.params.name} is required`;
       }
