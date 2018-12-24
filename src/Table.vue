@@ -105,7 +105,7 @@ export default {
     this.pagination_data.currentPage = this.loadedCollection.currentPage;
     this.pagination_data.perPage = this.loadedCollection.perPage;
     this.pagination_data.pageIncrement = this.loadedCollection.perPage;
-    this.pagination_data.totalPages = this.loadedCollection.totalPages;
+    this.pagination_data.totalPages = this.collections.length;
   },
   props: ["metaData", "collections", "collections_keys"],
   components: {

@@ -6,7 +6,7 @@
     </div>
 
     <div class="modal-content">
-      <form v-on:submit="newData_submit(payload)">
+      <form v-on:submit.prevent="createCollection(formData)">
         <text-input
           v-for="key in tblkeys"
           v-bind:key="key"
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import Textinput from "./Textinput.vue";
 
 export default {
@@ -34,17 +35,14 @@ export default {
   props: ["tblkeys", "popup"],
   data() {
     return {
-      formData: {
-        search_key: "",
-        search_val: ""
-      }
+      formData: []
     };
   },
   methods: {
     inputVal: function(payload) {
-      this.formData[payload.name] = payload.val;
-      console.log(this.formData);
-    }
+      this.formData.push({ [payload.name]: payload.val });
+    },
+    ...mapMutations(["createCollection"])
   }
 };
 </script>

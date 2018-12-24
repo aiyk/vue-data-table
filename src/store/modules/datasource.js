@@ -59,6 +59,24 @@ export const mutations = {
             })
         }
     },
+    createCollection(state, payload) {
+        // for (let k in payload) {
+        //     if (payload.hasOwnProperty(k)) {
+        //         data.push(Object.values(payload[k]));
+        //     }
+        // }
+        collections.push({
+            // payload[0],
+            // payload[1],
+            // payload[2],
+            // payload[3],
+            // payload[4]
+        });
+        console.log(payload[0]);
+        // collections.push(payload, function () {
+        //     console.log(payload);
+        // });
+    },
     updateCollections(state, payload) {
         let dataBack = Object.values(state.collections).find(data => data.ID == payload[2]);
         const item_index = Object.values(dataBack).indexOf(dataBack[payload[1]]);
