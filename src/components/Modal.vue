@@ -18,6 +18,7 @@
             _return: inputVal
           }"
         />
+        <button class="btn btn-blue">Submit</button>
       </form>
     </div>
   </div>
@@ -59,13 +60,19 @@ export default {
   display: flex;
   justify-content: space-between;
   background: #f8f8f8;
-  padding: 10px 20px;
+  padding: 10px 30px;
   box-sizing: border-box;
   img {
     cursor: pointer;
     padding: 5px;
     margin-left: 20px;
   }
+}
+.modal-content {
+  padding: 20px 30px;
+}
+form {
+  width: 100%;
 }
 
 @media only screen and (max-width: 650px) {

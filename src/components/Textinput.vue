@@ -1,8 +1,6 @@
 <template>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">{{params.name}}</span>
-    </div>
+  <div class="input-group">
+    <div class="input-group-label">{{params.name}}</div>
     <input
       v-bind:class="[{ isInvalid: params.error }, 'form-control', 'form-control-lg']"
       v-bind:placeholder="params.placeholder"
@@ -43,4 +41,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.input-group {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  .input-group-label {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+  }
+  input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid var(--bg-grey-dark);
+    box-sizing: border-box;
+  }
+}
 </style>
