@@ -6,7 +6,7 @@
         <div class="table-subtitle">{{metaData.tblSubtitle}}</div>
       </div>
       <div class="table-ctas">
-        <button class="btn btn-blue">
+        <button v-on:click="popup.open = !popup.open" class="btn btn-blue">
           <img src="./assets/icon-set/plus-white.svg"> Add New
         </button>
       </div>
@@ -86,12 +86,19 @@
       <pagination v-bind:collection="loadedCollection" v-bind:pagination_data="pagination_data"/>
       <div v-if="metaData.tblSummary" class="table-subtitle">{{metaData.tblSummary}}</div>
     </div>
+
+    <transition name="fade">
+      <div v-if="popup.open" class="modal-overlay">
+        <modal v-bind:tblkeys="collections_keys" v-bind:popup="popup"/>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
-import Pagination from "./Pagination.vue";
+import Pagination from "./components/Pagination.vue";
+import Modal from "./components/Modal.vue";
 
 export default {
   mounted() {
@@ -102,7 +109,8 @@ export default {
   },
   props: ["metaData", "collections", "collections_keys"],
   components: {
-    pagination: Pagination
+    pagination: Pagination,
+    modal: Modal
   },
   data() {
     return {
@@ -120,6 +128,11 @@ export default {
         currentPage: 0,
         perPage: 0,
         totalPages: 0
+      },
+
+      popup: {
+        open: false,
+        modalTitle: "New Data Entry"
       }
     };
   },
@@ -290,6 +303,19 @@ export default {
   padding: 8px;
   outline: 0px;
   border: 1px solid rgb(238, 238, 238);
+}
+
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.02);
+  top: 0;
+  left: 0;
 }
 
 @media only screen and (max-width: 650px) {
