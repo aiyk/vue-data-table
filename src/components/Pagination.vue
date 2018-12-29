@@ -2,7 +2,7 @@
   <div class="tbl-pagination">
     <span>
       showing page {{pagination_data.currentPage}}
-      out of {{pagination_data.totalPages}} pages
+      out of {{collection.totalPages}} pages
     </span>
     <img v-on:click="prev" src="../assets/icon-set/angle-left.svg">
     <img v-on:click="next" src="../assets/icon-set/angle-right.svg">
@@ -21,8 +21,8 @@ export default {
       }
     },
     next: function() {
-      if (this.pagination_data.currentPage >= this.pagination_data.totalPages) {
-        this.pagination_data.currentPage = this.pagination_data.totalPages;
+      if (this.pagination_data.currentPage >= this.collection.totalPages) {
+        this.pagination_data.currentPage = this.collection.totalPages;
       } else {
         this.pagination_data.currentPage += 1;
       }

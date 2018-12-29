@@ -105,7 +105,7 @@ export default {
     this.pagination_data.currentPage = this.loadedCollection.currentPage;
     this.pagination_data.perPage = this.loadedCollection.perPage;
     this.pagination_data.pageIncrement = this.loadedCollection.perPage;
-    this.pagination_data.totalPages = this.collections.length;
+    this.pagination_data.totalPages = this.collections.totalPages;
   },
   props: ["metaData", "collections", "collections_keys"],
   components: {
@@ -125,8 +125,8 @@ export default {
       criteria: { search_key: "", search_val: "" },
 
       pagination_data: {
-        currentPage: 0,
-        perPage: 0,
+        currentPage: 1,
+        perPage: 5,
         totalPages: 0
       },
 
@@ -188,7 +188,7 @@ export default {
     ])
   },
   computed: {
-    loadedCollection: function(fake, page = 1, perPage = 5) {
+    loadedCollection: function(fake, page, perPage) {
       this.criteria.search_key = this.searchKey;
       this.criteria.search_val = this.search;
 
