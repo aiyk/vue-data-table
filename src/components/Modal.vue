@@ -35,12 +35,12 @@ export default {
   props: ["tblkeys", "popup"],
   data() {
     return {
-      formData: []
+      formData: {}
     };
   },
   methods: {
     inputVal: function(payload) {
-      this.formData.push({ [payload.name]: payload.val });
+      this.formData[payload.name] = payload.val;
     },
     ...mapMutations(["createCollection"])
   }
