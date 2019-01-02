@@ -1,3 +1,9 @@
 {
-  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"],
+  "presets": [["env", {"modules": false}], "stage-3"],
+  "env": {
+    "test": {
+      "presets": [["env"], "stage-3"]
+    }
+  }
 }
