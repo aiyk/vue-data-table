@@ -1,4 +1,4 @@
-import { mutations } from './store/modules/datasource';
+import { mutations } from './datasource';
 
 var expect = require('chai').expect;
 var request = require('request');
