@@ -6,10 +6,11 @@ var request = require('request');
 const {
     sortCollections,
     createCollection,
-    updateCollections
+    updateCollections,
+    deleteCollection
 } = mutations;
 
-describe('sortCollections - mutations', () => {
+describe('mutations => sortCollections', () => {
     it('should sort the state collections array in both ascending and decending order (toggle ASC DSC)', () => {
         // mock state
         const state = {
@@ -36,7 +37,7 @@ describe('sortCollections - mutations', () => {
     })
 })
 
-describe('createCollection - mutations', () => {
+describe('mutations => createCollection', () => {
     it('should add a new entry to the state collections array', () => {
         // mock state
         const state = {
@@ -55,7 +56,7 @@ describe('createCollection - mutations', () => {
     })
 })
 
-describe('updateCollections - mutations', () => {
+describe('mutations => updateCollections', () => {
     it('should update table data', () => {
         // mock state
         const state = {
@@ -70,6 +71,25 @@ describe('updateCollections - mutations', () => {
         // assert result
         expect(state.collections).to.eql(
             [{ ID: '1', Name: 'Aiyk Ekwe' }]
+        );
+    })
+})
+
+describe('mutaions => deleteCollection', () => {
+    it('should delete table data', () => {
+        // mock state
+        const state = {
+            collections: [{ ID: '1', Name: 'Aiyk' }, { ID: '2', Name: 'Ekwe' }]
+        };
+
+        //mock payload
+        const payload = '2';
+
+        // apply mutation
+        deleteCollection(state, payload, test = true);
+        // assert result
+        expect(state.collections).to.eql(
+            [{ ID: '1', Name: 'Aiyk' }]
         );
     })
 })
