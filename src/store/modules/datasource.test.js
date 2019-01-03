@@ -3,29 +3,31 @@ import { mutations } from './datasource';
 var expect = require('chai').expect;
 var request = require('request');
 
-const { editTblData } = mutations;
+const { sortCollections } = mutations;
 
 describe('mutations', () => {
     it('should update the edited table row or specifically table data', () => {
         // mock state
         const state = {
-            tblData: [
-                {
-                    ID: "1",
-                    Name: "abc",
-                    Description: "efg",
-                    Date: "2017-07-23T04:24:49-07:00",
-                    Amount: 1
-                }
-            ]
+            collections: [{ ID: '1' }, { ID: '2' }
+            ],
+            sortState: true
         };
 
         //mock payload
-        payload = [{ 'srcElement': 'Aiyk' }, 'Name', '1'];
+        const sort_key = 'ID';
 
         // apply mutation
-        editTblData(state, payload);
+        sortCollections(state, sort_key);
         // assert result
-        expect(state.tblData.Name).to.equal('Aiyk');
+        if (state.sortState) {
+            expect(state.collections).to.eql(
+                [{ ID: '1' }, { ID: '2' }]
+            );
+        } else {
+            expect(state.collections).to.eql(
+                [{ ID: '2' }, { ID: '1' }]
+            );
+        }
     })
 })
