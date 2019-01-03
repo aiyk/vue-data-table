@@ -70,19 +70,23 @@ export const mutations = {
             collections.push(payload);
         }
     },
-    updateCollections(state, payload) {
+    updateCollections(state, payload, test = false) {
         let dataBack = Object.values(state.collections).find(data => data.ID == payload[2]);
         const item_index = Object.values(dataBack).indexOf(dataBack[payload[1]]);
-        console.log(item_index);
         const obj_index = Object.values(state.collections).findIndex(data => data.ID == payload[2]);
         const keyBack = Object.keys(dataBack);
         const req_payload = payload[0].srcElement.value;
         const req_header = keyBack[item_index];
 
         dataBack[req_header] = req_payload;
-        collections.child(obj_index).set(dataBack, function () {
-            console.log(obj_index);
-        });
+
+        if (test) {
+            state.collections[obj_index] = dataBack;
+        } else {
+            collections.child(obj_index).set(dataBack, function () {
+                console.log(obj_index);
+            });
+        }
     },
     deleteCollection(state, payload) {
         const obj_index = Object.values(state.collections).findIndex(data => data.ID == payload);

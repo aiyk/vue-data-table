@@ -3,7 +3,11 @@ import { mutations } from './datasource';
 var expect = require('chai').expect;
 var request = require('request');
 
-const { sortCollections, createCollection } = mutations;
+const {
+    sortCollections,
+    createCollection,
+    updateCollections
+} = mutations;
 
 describe('sortCollections - mutations', () => {
     it('should sort the state collections array in both ascending and decending order (toggle ASC DSC)', () => {
@@ -47,6 +51,25 @@ describe('createCollection - mutations', () => {
         // assert result
         expect(state.collections).to.eql(
             [{ ID: '1' }, { ID: '2' }, { ID: '3' }]
+        );
+    })
+})
+
+describe('updateCollections - mutations', () => {
+    it('should update table data', () => {
+        // mock state
+        const state = {
+            collections: [{ ID: '1', Name: 'Aiyk' }]
+        };
+
+        //mock payload
+        const payload = [{ srcElement: { value: 'Aiyk Ekwe' } }, 'Name', '1'];
+
+        // apply mutation
+        updateCollections(state, payload, test = true);
+        // assert result
+        expect(state.collections).to.eql(
+            [{ ID: '1', Name: 'Aiyk Ekwe' }]
         );
     })
 })
