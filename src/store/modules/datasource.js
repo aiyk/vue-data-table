@@ -63,8 +63,12 @@ export const mutations = {
             })
         }
     },
-    createCollection(state, payload) {
-        collections.push(payload);
+    createCollection(state, payload, test = false) {
+        if (test) {
+            state.collections.push(payload);
+        } else {
+            collections.push(payload);
+        }
     },
     updateCollections(state, payload) {
         let dataBack = Object.values(state.collections).find(data => data.ID == payload[2]);
