@@ -1,4 +1,4 @@
-import { mutations } from './datasource';
+import { mutations, getters } from './datasource';
 
 var expect = require('chai').expect;
 var request = require('request');
@@ -9,6 +9,13 @@ const {
     updateCollections,
     deleteCollection
 } = mutations;
+
+const {
+    metaData,
+    collections,
+    collections_keys,
+    filteredCollections
+} = getters;
 
 describe('mutations => sortCollections', () => {
     it('should sort the state collections array in both ascending and decending order (toggle ASC DSC)', () => {
@@ -91,5 +98,77 @@ describe('mutaions => deleteCollection', () => {
         expect(state.collections).to.eql(
             [{ ID: '1', Name: 'Aiyk' }]
         );
+    })
+})
+
+describe('getters => metaData', () => {
+    it('should return table meta data', () => {
+        // mock state
+        const state = {
+            metaData: {
+                tblTitle: "BriteCore Payment Data",
+                tblSubtitle: "Customer settement sheet for the month of October, 2018.",
+                trActions: true,
+                trCheckbox: false,
+                tblSummary: "the table is a brief breakdown of all the accumulated wealth of britecore's clientale"
+            },
+            collections: []
+        }
+
+        // apply mutation
+        const metadata = metaData(state);
+        // assert result
+        expect(state.metaData).to.eql(metadata);
+    })
+})
+
+describe('getters => collections', () => {
+    it('should return table collections', () => {
+        // mock state
+        const state = {
+            metaData: {},
+            collections: [{ ID: '1', Name: 'Aiyk' }, { ID: '2', Name: 'Ekwe' }]
+        }
+
+        // apply mutation
+        const collection = collections(state);
+        // assert result
+        expect(state.collections).to.eql(collection);
+    })
+})
+
+describe('getters => collections_keys', () => {
+    it('should return table headers', () => {
+        // mock state
+        const state = {
+            metaData: {},
+            collections: [{ ID: '1', Name: 'Aiyk' }, { ID: '2', Name: 'Ekwe' }]
+        }
+
+        // apply mutation
+        const keys = collections_keys(state);
+        // assert result
+        expect(keys).to.eql(['ID', 'Name']);
+    })
+})
+
+describe('getters => filteredCollections', () => {
+    it('should return a filtered data set', () => {
+        // mock state
+        const state = {
+            metaData: {},
+            collections: [{ ID: '1', Name: 'Aiyk' }, { ID: '2', Name: 'Ekwe' }]
+        }
+
+        //mock criteria
+        const criteria = {
+            search_key: 'ID',
+            search_val: '1'
+        }
+        // apply mutation
+        const result = filteredCollections(state, criteria);
+        console.log('******', result);
+        // assert result
+        expect(result).to.eql([{ ID: '1', Name: 'Aiyk' }]);
     })
 })

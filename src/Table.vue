@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import "es6-promise/auto";
 import { mapMutations } from "vuex";
 import Pagination from "./components/Pagination.vue";
 import Modal from "./components/Modal.vue";
