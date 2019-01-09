@@ -2,7 +2,6 @@
 
 ### Introduction
 > Vue Data Table is built with one primary goal in mind, REUSABILITY. the basic purpose of this project is to supply its user a holistic data table which ships with every table feature right out of the box.
-
 Whilst ensuring that this project is complex enough to carter for every table or data management related need right out the box, we also put in concious effort to ship a product which is extremely easy to setup and or configure.
 
 ### Documentation
