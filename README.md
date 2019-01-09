@@ -12,6 +12,7 @@ To setup this project on your local mechine;
 run `git clone https://github.com/aiyk/vue-data-table.git` to clone the repository unto your mechine
 
 `cd vue-data-table`
+
 `npm install`
 
 finally run the command `npm run dev` to serve the application. Once served, the application loads up with some dummy data loaded from a firebase database, this gives you a basic idea of what to expect.
@@ -82,3 +83,24 @@ collections_keys: state => {
     }
 }
 ```
+
+### Notes
+
+#### For how long I worked on this component?
+Its really hard to measure since i worked along side this project three others all within the same season, but a rough estimate of say two weeks should do.
+
+#### What I would do differently if i had more time?
+Alot actually, but for starters, I would build a proper rest API with Node js and not have to use firebase so as to be sure to simulate what a real life situation would look like.
+
+#### How I can Adapt my component for greater reusability?
+* [x] Deploy the component as an NPM package for ease of use as a dependency
+* [x] ensure that the table row action set is dynamically loaded and configurable
+* [x] bake into the component more filtering options based on the loaded data set
+* [x] add configuration meta data to every table data. this is so as to give the user the ability to set what actions can be carried out on each table data. A good example for this is how the user story clearly specified that the Admin should be able to edit payment details but said nothing about the others.
+* [x] improve on my unit test's coverage, especially component based tests
+
+#### My favorite css property?
+its definately css grid, reason being that with little effort, it gives an unlimited wealth of control with regards to positioning stuff. By the way, this component works mostly because of a few lines of css grid based style rules
+
+#### My favorite modern javascript feature?
+my favorite modern javascript feature will be the currying of unary functions which i refer to as the double arrowed function. 

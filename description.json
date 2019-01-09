@@ -1,0 +1,27 @@
+{
+    "Name": "Ikechukwu Ekwe",
+    "Job Title": "Fullstack Developer",
+    "Country": "Nigeria",
+    "State": "Lagos",
+    "Likes": [
+        "Great Conversations",
+        "Music"
+    ],
+    "Gender": "Male",
+    "Proficiency": [
+        "Vue",
+        "Vuex",
+        "React",
+        "Redux",
+        "Jest",
+        "Angular",
+        "Sass",
+        "Markdown",
+        "Git",
+        "Javascript",
+        "Node",
+        "Webpack"
+    ],
+    "Github": "https://github.com/aiyk",
+    "LinkedIn": "https://www.linkedin.com/in/ikechukwu-ekwe-a51969b6/"
+}
