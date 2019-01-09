@@ -33,7 +33,20 @@
             class="th"
           >
             <span>{{th}}</span>
-            <img src="https://vue-data-table.firebaseapp.com/filter.svg">
+            <svg
+              width="14"
+              height="12"
+              viewBox="0 0 14 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M14 1.5H0V0.5H14V1.5ZM12 6.5H2V5.5H12V6.5ZM4 11.5H10V10.5H4V11.5Z"
+                fill="#646D82"
+              ></path>
+            </svg>
           </div>
           <div v-if="metaData.trActions" class="td-actions"></div>
         </div>
@@ -69,10 +82,37 @@
                     <img src="https://vue-data-table.firebaseapp.com/eye.svg"> View
                   </li>-->
                   <li v-on:click.stop="editTr_onclick(index), tblmenuitem_onclick('')">
-                    <img src="https://vue-data-table.firebaseapp.com/edit.svg"> Edit
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 13 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.332 13H0.492C0.361513 13 0.236371 12.9482 0.144103 12.8559C0.0518356 12.7636 0 12.6385 0 12.508V10.668C0.0182671 10.3539 0.143146 10.0555 0.354 9.822L7.766 2.41L10.59 5.234L3.178 12.646C2.94469 12.8571 2.64615 12.9821 2.332 13ZM11.3 4.528L8.472 1.7L9.885 0.292C9.97659 0.199484 10.0856 0.126043 10.2058 0.075923C10.3259 0.0258027 10.4548 -2.2656e-06 10.585 1.49192e-10C10.7181 0.000329895 10.8498 0.0270096 10.9725 0.0784998C11.0952 0.12999 11.2065 0.205271 11.3 0.3L12.7 1.7C12.7949 1.79353 12.8703 1.90498 12.9218 2.0279C12.9733 2.15081 12.9999 2.28273 13 2.416C12.9999 2.54618 12.9741 2.67506 12.924 2.7952C12.8739 2.91534 12.8005 3.02437 12.708 3.116L11.3 4.527V4.528Z"
+                        fill="#646D82"
+                      ></path>
+                    </svg>
+                    Edit
                   </li>
                   <li v-on:click.stop="deleteCollection([item.ID]), tblmenuitem_onclick('')">
-                    <img src="https://vue-data-table.firebaseapp.com/trash-red.svg"> Delete
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.25 3.75V2.25H6.75V3.75H2.25V5.25H15.75V3.75H11.25Z"
+                        fill="#F46363"
+                      ></path>
+                      <path
+                        d="M3.75 6.00006V15.0001C3.75 15.8273 4.42275 16.5001 5.25 16.5001H12.75C13.5773 16.5001 14.25 15.8273 14.25 15.0001V6.00006H3.75ZM8.25 13.5001H6.75V9.00006H8.25V13.5001ZM11.25 13.5001H9.75V9.00006H11.25V13.5001Z"
+                        fill="#F46363"
+                      ></path>
+                    </svg> Delete
                   </li>
                 </ul>
               </transition>
@@ -285,7 +325,7 @@ export default {
   align-items: center;
   grid-column: span 1;
 }
-.td-actions img {
+.td-actions svg {
   cursor: pointer;
 }
 .table-subtitle {
