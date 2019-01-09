@@ -156,13 +156,7 @@ li {
   border: 1px solid #aaa;
 }
 .btn-x0 {
-  width: 4rem;
-  height: 3.5rem;
-}
-.btn-elipsis-v-center {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: url("https://vue-data-table.firebaseapp.com/elipsis-v.svg");
+  padding: 5px 10px;
 }
 /***** DROP DOWN MENU STYLE RULES *****/
 .dropdown-wrap {
@@ -189,7 +183,7 @@ li {
 .dropdown-wrap .dropdown-menu li:hover {
   background-color: var(--bg-grey-lighter);
 }
-.dropdown-wrap .dropdown-menu li img {
+.dropdown-wrap .dropdown-menu li svg {
   margin-right: 1rem;
   display: inline;
 }
@@ -211,7 +205,6 @@ li {
   border: 0px;
   background-repeat: no-repeat;
   background-position: 0% 50%;
-  background-image: url("https://vue-data-table.firebaseapp.com/search.svg");
   padding: 1rem 1rem 1rem 2rem;
   margin: 0 !important;
   width: 100%;
