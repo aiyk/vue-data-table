@@ -6,9 +6,9 @@
         <div class="table-subtitle">{{metaData.tblSubtitle}}</div>
       </div>
       <div class="table-ctas">
-        <button v-on:click="popup.open = !popup.open" class="btn btn-blue">
-          <img src="./assets/icon-set/plus-white.svg"> Add New
-        </button>
+        <!-- <button v-on:click="popup.open = !popup.open" class="btn btn-blue">
+          <img src="https://vue-data-table.firebaseapp.com/plus-white.svg"> Add New
+        </button>-->
       </div>
     </div>
 
@@ -33,7 +33,7 @@
             class="th"
           >
             <span>{{th}}</span>
-            <img src="./assets/icon-set/filter.svg">
+            <img src="https://vue-data-table.firebaseapp.com/filter.svg">
           </div>
           <div v-if="metaData.trActions" class="td-actions"></div>
         </div>
@@ -66,13 +66,13 @@
                   class="dropdown-menu"
                 >
                   <!-- <li>
-                    <img src="./assets/icon-set/eye.svg"> View
+                    <img src="https://vue-data-table.firebaseapp.com/eye.svg"> View
                   </li>-->
                   <li v-on:click.stop="editTr_onclick(index), tblmenuitem_onclick('')">
-                    <img src="./assets/icon-set/edit.svg"> Edit
+                    <img src="https://vue-data-table.firebaseapp.com/edit.svg"> Edit
                   </li>
                   <li v-on:click.stop="deleteCollection([item.ID]), tblmenuitem_onclick('')">
-                    <img src="./assets/icon-set/trash-red.svg"> Delete
+                    <img src="https://vue-data-table.firebaseapp.com/trash-red.svg"> Delete
                   </li>
                 </ul>
               </transition>

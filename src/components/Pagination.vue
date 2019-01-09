@@ -4,8 +4,8 @@
       showing page {{pagination_data.currentPage}}
       out of {{collection.totalPages}} pages
     </span>
-    <img v-on:click="prev" src="../assets/icon-set/angle-left.svg">
-    <img v-on:click="next" src="../assets/icon-set/angle-right.svg">
+    <img v-on:click="prev" src="https://vue-data-table.firebaseapp.com/angle-left.svg">
+    <img v-on:click="next" src="https://vue-data-table.firebaseapp.com/angle-right.svg">
   </div>
 </template>
 

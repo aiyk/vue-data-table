@@ -2,7 +2,10 @@
   <div class="modal-wrap shadow">
     <div class="modal-header">
       <div class="modal-title">{{popup.modalTitle}}</div>
-      <img v-on:click="popup.open = !popup.open" src="../assets/icon-set/times.svg">
+      <img
+        v-on:click="popup.open = !popup.open"
+        src="https://vue-data-table.firebaseapp.com/times.svg"
+      >
     </div>
 
     <div class="modal-content">

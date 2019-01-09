@@ -153,7 +153,7 @@ describe('getters => collections_keys', () => {
 })
 
 describe('getters => filteredCollections', () => {
-    it('should return a filtered data set', () => {
+    it('should return a filtered data set based on the supplied criteria', () => {
         // mock state
         const state = {
             metaData: {},
@@ -166,8 +166,7 @@ describe('getters => filteredCollections', () => {
             search_val: '1'
         }
         // apply mutation
-        const result = filteredCollections(state, criteria);
-        console.log('******', result);
+        const result = filteredCollections(state)(criteria);
         // assert result
         expect(result).to.eql([{ ID: '1', Name: 'Aiyk' }]);
     })
