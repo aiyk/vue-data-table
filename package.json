@@ -1,7 +1,7 @@
 {
   "name": "@aiyk/vue-data-table",
   "description": "a custom data table built in vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "aiyk <aiyk.ekwe@gmail.com>",
   "license": "MIT",
   "main": "./dist/data-table.common.js",
