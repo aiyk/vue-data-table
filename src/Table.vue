@@ -261,7 +261,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .table-wrap {
   width: 100%;
   background: #fff;
