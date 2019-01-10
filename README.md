@@ -98,6 +98,7 @@ Alot actually, but for starters, I would build a proper rest API with Node js an
 * [x] bake into the component more filtering options based on the loaded data set
 * [x] add configuration meta data to every table data. this is so as to give the user the ability to set what actions can be carried out on each table data. A good example for this is how the user story clearly specified that the Admin should be able to edit payment details but said nothing about the others.
 * [x] improve on my unit test's coverage, especially component based tests
+* [x] include customizable theming so table can easily blend in
 
 #### My favorite css property?
 its definately css grid, reason being that with little effort, it gives an unlimited wealth of control with regards to positioning stuff. By the way, this component works mostly because of a few lines of css grid based style rules
